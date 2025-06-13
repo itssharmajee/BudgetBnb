@@ -42,6 +42,10 @@ export const signInUser = async (req, res) => {
     return res.redirect(`${redirectURL}`);
 };
 
+export const userProfile = (req,res,next)=>{
+    res.render('user/profile.ejs',{heading:"profile"})
+}
+
 export const logoutUser = (req, res, next) => {
     req.logout((err) => {
         if (err) {
