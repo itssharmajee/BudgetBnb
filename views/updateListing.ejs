@@ -1,0 +1,88 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+<body class="">
+  <h2 class="mb-4 text-center text-primary text-uppercase">Edit Listing</h2>
+
+  <form method="POST" action="/listing/<%= list._id %>?_method=PATCH" novalidate class="card p-4 shadow-sm m-md-5 needs-validation" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input 
+        type="text" 
+        name="title" 
+        id="title" 
+        class="form-control" 
+        value="<%= list.title %>" 
+        required
+      >
+      <div class="invalid-feedback">Title should be valid</div>
+    </div>
+
+    <div class="row">
+      <div class="mb-3 col-sm-4">
+      <label for="price" class="form-label">Price (INR)</label>
+      <input 
+        type="number" 
+        name="price" 
+        id="price" 
+        class="form-control" 
+        value="<%= list.price %>" 
+        min="0" 
+        required
+      >
+      <div class="invalid-feedback">Price should be valid</div>
+    </div>
+    <div class="mb-3 col-sm-4">
+      <label for="location" class="form-label">Location</label>
+      <input 
+        type="text" 
+        name="location" 
+        id="location" 
+        class="form-control" 
+        value="<%= list.location %>" 
+        required
+      >
+      <div class="invalid-feedback">location should be valid</div>
+    </div>
+    <div class="mb-3 col-sm-4">
+            <label for="category" class="form-label">Category</label>
+            <select name="category" id="category" class="form-select" required>
+              <option value=""><%= list.category %></option>
+              <option value="villa">Villa</option>
+              <option value="camping">Camping</option>
+              <option value="towers">Towers</option>
+              <option value="farms">Farms</option>
+              <option value="castles">Castles</option>
+            </select>
+            <div class="invalid-feedback">Please select a category</div>
+          </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea 
+        name="description" 
+        id="description" 
+        rows="3" 
+        class="form-control" 
+        required><%= list.description.trim() %></textarea>
+        <div class="invalid-feedback">description should be there minimum 10 characters</div>
+    </div>
+
+
+    <div class="mb-3">
+      <p>Origional Image</p>
+      <img class="rounded-2" src="<%= imageURL %>" alt="list image" style="max-width: 100%; max-height: 150px; height: auto; " >
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Upload New Image</label>
+      <input 
+        type="file"
+        name="image"
+        id="image" 
+        class="form-control" 
+      >
+    </div>
+
+    <button type="submit" class="btn btn-success">Update Listing</button>
+  </form>
+</body>
+

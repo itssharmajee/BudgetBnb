@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate.ejs') %>
+<body>
+  <h2 class="text-center text-primary">Login to BudgetBnb</h2>
+  <form
+    class="col-6 m-auto mt-2 needs-validation"
+    novalidate
+    method="post"
+    action="/signin"
+  >
+    <div class="mb-3">
+      <label for="exampleInputUsername" class="form-label">Username</label>
+      <input
+        type="text"
+        name="username"
+        class="form-control"
+        id="exampleInputUsername"
+        required
+      />
+      <div class="invalid-feedback">Username must be there</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        id="exampleInputPassword1"
+        required
+      />
+    </div>
+    <p> Don't have an account!<a href="/signup">Signup </a></p>
+    <div class="text-center">
+      <button type="submit" class="btn btn-success">Login</button>
+    </div>
+  </form>
+</body>

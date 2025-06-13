@@ -1,0 +1,11 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="alert alert-danger shadow-lg p-4 rounded text-center w-75 w-md-50">
+    <h4 class="alert-heading mb-3">Oops! Something went wrong</h4>
+    <p class="mb-0 fs-4"><%= err.message %></p>
+    <p class="fst-italic lh-sm"><%= err.stack %></p>
+     <a href="/" class="btn btn-primary mt-5">Go to Home</a>
+  </div>
+ 
+</div>

@@ -1,0 +1,105 @@
+/* body {
+    height: 100%;
+    margin: 0;
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.main-container{
+    flex: 1 !important;
+} */
+
+html, body {
+    height: 100%; /* Both html and body need height */
+    margin: 0;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    flex: 1 0 auto; /* Grow, don't shrink, auto basis */
+    padding-bottom: 20px; /* Optional spacing */
+}
+
+footer {
+    flex-shrink: 0; /* Prevent footer from shrinking */
+    /* Optional footer styles */
+    background: #333;
+    color: white;
+    padding: 20px 0;
+}
+
+.price {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.card-img-overlay {
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.4;
+    background: #ffffff;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+}
+
+.feature-icon {
+    font-size: 2rem;
+    color: #007bff;
+}
+
+.bi-star, .bi-star-fill {
+  font-size: 1.2rem;
+  margin-right: 0.1rem;
+}
+
+/* profile  */
+.profile-header {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    }
+    .social-icons a {
+      margin: 0 10px;
+      color: #495057;
+      font-size: 1.5rem;
+    }
+
+
+.custom-dropdown {
+  background-color: #ffffff; /* white background */
+  border: 1px solid #dee2e6;
+  max-height: 250px; /* makes it scrollable if too many items */
+  overflow-y: auto;
+  scrollbar-width: thin; /* Firefox */
+}
+
+.custom-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-dropdown::-webkit-scrollbar-thumb {
+  background-color: #ced4da;
+  border-radius: 10px;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa; /* light hover effect */
+  color: #0d6efd; /* Bootstrap primary color */
+  border-radius: 5px;
+}

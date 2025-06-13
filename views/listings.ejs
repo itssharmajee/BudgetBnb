@@ -1,0 +1,172 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+
+  <body>
+
+    <form action="/listing/listing-filtered-data" method="get">
+      <div class="container-fluid mt-4">
+        <div class="col-md-8 m-auto">
+          <ul class="nav nav-pills nav-fill gap-2 p-1 small rounded-5 shadow-sm" style="
+    background: linear-gradient(90deg, #4e54c8, #8f94fb);
+    --bs-nav-link-color: white;
+    --bs-nav-pills-link-active-bg: white;
+    --bs-nav-pills-link-active-color: #4e54c8;
+  " role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active rounded-5 btn" aria-expanded="false" id="home-tab2" data-bs-toggle="tab"
+                type="button" role="tab" aria-selected="true">
+                <div>
+                  <p class="lh-sm m-0 p-0" href="#" role="button" data-bs-toggle="dropdown">
+                    <span>Where</span>
+                    <br>
+                    <span id="whereDisplay">Choose destination</span>
+                  </p>
+
+                  <ul class="dropdown-menu w-25 rounded-3 shadow-lg mt-3 px-md-3 py-2 custom-dropdown">
+                    <input type="hidden" name="location" id="cityInput" />
+                    <li class="dropdown-item fw-semibold py-2" data-value="new delhi">New Delhi</li>
+                    <li class="dropdown-item fw-semibold py-2" data-value="mumbai">Mumbai</li>
+                    <li class="dropdown-item fw-semibold py-2" data-value="noida">Noida</li>
+                    <li class="dropdown-item fw-semibold py-2" data-value="uttar pradesh">Uttar Pradesh</li>
+                    <li class="dropdown-item fw-semibold py-2" data-value="hariyana">Hariyana</li>
+                  </ul>
+                </div>
+              </button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab"
+                aria-selected="false">
+                <p class="lh-sm m-0 p-0" href="#" role="button" data-bs-toggle="dropdown">
+                  <span>Category</span>
+                  <br>
+                  <span id="categoryDisplay">Choose Category</span>
+                </p>
+                <ul class="dropdown-menu w-25 rounded-3 shadow-lg mt-3 px-md-3 py-2 custom-dropdown">
+                  <input type="hidden" name="category" id="categoryInput" />
+                  <li class="dropdown-item fw-semibold py-2" data-value="castles">Castles</li>
+                  <li class="dropdown-item fw-semibold py-2" data-value="farms">Farms</li>
+                  <li class="dropdown-item fw-semibold py-2" data-value="towers">Towers</li>
+                  <li class="dropdown-item fw-semibold py-2" data-value="camping">Camping</li>
+                  <li class="dropdown-item fw-semibold py-2" data-value="villa">Villa</li>
+                </ul>
+
+              </button>
+            </li>
+            <li class="nav-item d-flex align-items-center justify-content-end">
+              <button class="rounded-5 me-3" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </form>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Handle dropdown item clicks
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+          item.addEventListener('click', function () {
+            const dropdown = this.closest('.dropdown-menu');
+            const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+            const displayElement = dropdown.closest('.nav-item').querySelector('span:last-child');
+
+            // Update hidden input and display text
+            hiddenInput.value = this.dataset.value;
+            displayElement.textContent = this.textContent;
+
+            // Close the dropdown
+            const dropdownToggle = dropdown.previousElementSibling;
+            bootstrap.Dropdown.getOrCreateInstance(dropdownToggle).hide();
+          });
+        });
+
+        // Form submission handler (optional)
+        document.getElementById('searchForm').addEventListener('submit', function (e) {
+          // You can add validation here if needed
+          console.log('Form submitted with:', {
+            city: this.city.value,
+            category: this.category.value
+          });
+        });
+      });
+    </script>
+
+
+
+    <div>
+      <div class="container-fluid mt-4">
+        <div class="row justify-content-center g-3">
+          <% for (let i=0; i < allListings.length; i++) { const list=allListings[i]; %>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+              <div class="card rounded-1 p-0" style="width: 20rem;">
+                <a href="/listing/<%= list._id %>">
+                  <img style="height: 15rem;" src="<%= list.image.url %>" class="card-img-top object-fit-cover"
+                    alt="list_images" />
+                  <div class="card-img-overlay"></div> <!--  used for something over images -->
+                </a>
+                <div class="card-body py-2">
+                  <p class="card-text fw-semibold mb-1">
+                    <%= list.title %>
+                  </p>
+                  <p class="m-0 price text-success-emphasis">&#8377; <%= list.price.toLocaleString('en-IN') %> / night
+                  </p>
+                </div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+      </div>
+
+
+    </div>
+    <!-- <img src="https://plus.unsplash.com/premium_photo-1661964475795-f0cb85767a88?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""> -->
+    </div>
+  </body>
+
+  <script>
+    // Destination
+    function setCity(city) {
+      document.getElementById("city-input").value = city;
+      document.getElementById("destination-label").textContent = city;
+    }
+
+    // Category
+    function setCategory(category) {
+      document.getElementById("category-input").value = category;
+      document.getElementById("category-label").textContent = category;
+    }
+
+    // Counters
+    function setupCounter(id) {
+      let count = 0;
+      const countSpan = document.getElementById(`${id}-count`);
+      const input = document.getElementById(`${id}-input`);
+      document.getElementById(`increase-${id}`).onclick = () => {
+        count++;
+        countSpan.textContent = count;
+        input.value = count;
+        updateGuestLabel();
+      };
+      document.getElementById(`decrease-${id}`).onclick = () => {
+        if (count > 0) {
+          count--;
+          countSpan.textContent = count;
+          input.value = count;
+          updateGuestLabel();
+        }
+      };
+    }
+
+    function updateGuestLabel() {
+      const total = ['adult', 'children', 'infant', 'pet']
+        .map(id => parseInt(document.getElementById(`${id}-input`).value))
+        .reduce((a, b) => a + b, 0);
+      document.getElementById("who-label").textContent = total > 0 ? `${total} Guest${total > 1 ? 's' : ''}` : "Add Guests";
+    }
+
+    setupCounter("adult");
+    setupCounter("children");
+    setupCounter("infant");
+    setupCounter("pet");
+  </script>

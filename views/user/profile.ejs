@@ -1,0 +1,46 @@
+<% layout('/layouts/boilerplate.ejs') %>
+<body>
+<div class="container">
+  <div class="card mt-5 shadow-sm">
+    <div class="card-body">
+      <div class="profile-header">
+        <img src="/images/profile.png" alt="Profile Picture" class="profile-img">
+        <h2 class="mt-3"><%= currUser?.username || "Annonymous" %></h2>
+        <p><%= currUser?.email %></p>
+        <p class="text-muted">Web Developer | New York, USA</p>
+      </div>
+
+      <hr>
+
+      <div class="row text-center">
+        <div class="col-md-4">
+          <h5>Posts</h5>
+          <p>120</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Followers</h5>
+          <p>5.2k</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Following</h5>
+          <p>300</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="text-center social-icons">
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-twitter"></i></a>
+        <a href="#"><i class="bi bi-linkedin"></i></a>
+        <a href="#"><i class="bi bi-github"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap & Icons -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</body>
+

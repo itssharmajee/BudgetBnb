@@ -1,0 +1,153 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+
+<body>
+  <div class="card shadow-sm overflow-hidden m-md-3">
+    <!-- Listing Image -->
+    <div>
+      <img
+        src="<%= list.image?.url %>"
+        alt="<%= list.title %>"
+        class="card-img-top h-auto"
+        style="height: 300px; object-fit: cover"
+      />
+    </div>
+
+    <!-- Card Body -->
+    <div class="card-body">
+      <h1 class="card-title mb-4 text-primary text-center">
+        <%= list.title %>
+      </h1>
+      <ul class="list-group mb-4">
+        <p>Owned By:@ <i class="fw-bold"><%= list.owner?.username %></i></p>
+        <li class="list-group-item">
+          <strong>Description:</strong> <%= list.description %>
+        </li>
+        <li class="list-group-item">
+          <strong>Price:</strong> &#8377; <%= list.price.toLocaleString('en-IN')
+          %> / night
+        </li>
+        <li class="list-group-item">
+          <strong>Location:</strong> <%= list.location %>
+        </li>
+        <% if(list.category){ %>
+          <li class="list-group-item">
+          <strong>Category:</strong> <%= list.category %>
+        </li>
+        <% } %>
+      </ul>
+      <% if(currUser && currUser._id.equals(list.owner?._id)) {%>
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="/listing/<%= list._id %>/list" class="btn btn-outline-warning"
+          >Edit Listing</a
+        >
+        <form
+          method="POST"
+          action="/listing/<%= list._id %>?_method=DELETE"
+          class="m-0"
+        >
+          <button type="submit" class="btn btn-outline-danger">
+            Delete Listing
+          </button>
+        </form>
+      </div>
+      <% } %>
+    </div>
+    <% if(currUser) {%>
+    <div class="card-body">
+      <h3 class="">Leave a comments...</h3>
+      <form
+        action="/listing/<%=list._id %>/reviews"
+        method="post"
+        novalidate
+        class="needs-validation"
+      >
+        <div class="">
+          <label class="form-label" for="rating">Rating</label>
+          <fieldset class="starability-slot">
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="rating"
+              value="1"
+              checked
+              aria-label="No rating."
+            />
+            <input type="radio" id="first-rate1" name="rating" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="rating" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="rating" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="rating" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="rating" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div>
+          <label class="form-label" for="comment"></label>
+          <textarea
+            name="comment"
+            id="comment"
+            placeholder="write some comments..."
+            rows="5"
+            class="form-control"
+            required
+          ></textarea>
+          <div class="invalid-feedback">there should be valid description</div>
+        </div>
+        <button class="btn btn-primary my-2">submit</button>
+      </form>
+    </div>
+    <% } %> <% if (list.reviews && list.reviews.length > 0) { %>
+    <div class="card-body">
+      <h2 class="text-center">All REVIEWS...</h2>
+
+      <div class="row p-3 g-md-2">
+        <% list.reviews.forEach(review => { %>
+        <div class="p-3 border rounded-2 col-12 col-md-6">
+          <p class="mb-1 fs-0.5"><%= review.comment %></p>
+          <!-- Show author & date  -->
+          <% if (review.author && review.author.username) { %>
+          <small class="text-muted">— <%= review.author.username %></small>
+          <% } %> <% if (review.createdAt) { %>
+          <small class="text-muted"
+            ><%= review.createdAt.toLocaleDateString() %></small
+          >
+          <% } %>
+          <!-- Show rating (if available) -->
+          <p class="starability-result" data-rating="<%= review.rating %>"></p>
+          <div>
+            <form
+              method="post"
+              action="/listing/<%=list._id %>/reviews/<%= review._id %>?_method=DELETE"
+            >
+              <button type="submit" class="btn btn-sm btn-secondary">
+                Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="card-body text-center">
+      <p class="text-muted">No reviews yet. Be the first to leave one!</p>
+    </div>
+    <% } %>
+
+    <div class="text-center">
+      <h4>Where you’ll be</h4>
+      <p><%= list.location %></p>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13059.363425768679!2d77.08652581923523!3d28.738657930404397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1749554125133!5m2!1sen!2sin"
+        style="border: 0; width: 80%; height: 70vh"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</body>

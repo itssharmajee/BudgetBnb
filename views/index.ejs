@@ -1,0 +1,71 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+<body>
+
+  <!-- Hero Section with Overlay -->
+  <div class="position-relative">
+    <img src="https://res.cloudinary.com/dnkse0u6b/image/upload/v1749485911/budgetbnb/xfjyyvidc9efjkrnqx5x.jpg" class="w-100" style="height: 90vh; object-fit: cover;" alt="Hero Image" />
+    <div class="position-absolute top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center text-center hero-overlay">
+      <h1 class="display-3 fw-bold">Welcome to BudgetBnb</h1>
+      <p class="lead">Discover affordable homestays across India</p>
+      <a href="/listing" class="btn btn-primary btn-lg mt-3">Explore Listings</a>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section class="py-5 bg-light">
+    <div class="container text-center">
+      <h2 class="mb-4">Why Travel with BudgetBnb?</h2>
+      <div class="row g-4">
+        <div class="col-sm-4">
+          <div class="card p-4 h-100 shadow-sm">
+            <div class="feature-icon mb-3">💰</div>
+            <h5>Budget-Friendly</h5>
+            <p>Affordable stays that don’t compromise comfort or experience.</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card p-4 h-100 shadow-sm">
+            <div class="feature-icon mb-3">🌍</div>
+            <h5>Explore India</h5>
+            <p>From the Himalayas to the beaches of Goa — discover hidden gems.</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card p-4 h-100 shadow-sm">
+            <div class="feature-icon mb-3">🤝</div>
+            <h5>Trusted Hosts</h5>
+            <p>All listings are verified for a safe and welcoming experience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explore Listings Preview -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Popular Destinations</h2>
+      <div class="row g-4">
+        <% for (let i = 0; i < lists.length; i++) {
+          const list = lists[i]; %>
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <img src="<%= list.image.url %>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="listing" />
+              <div class="card-body">
+                <h5 class="card-title"><%= list.title %></h5>
+                <p class="card-text text-muted"><%= list.location %></p>
+                <p class="text-success">&#8377; <%= list.price.toLocaleString('en-IN') %> / night</p>
+                <a href="/listing/<%= list._id %>" class="btn btn-outline-primary btn-sm">View Listing</a>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+      <div class="text-center mt-4">
+        <a href="/listing" class="btn btn-primary">Browse All Listings</a>
+      </div>
+    </div>
+  </section>
+</body>
+
+
