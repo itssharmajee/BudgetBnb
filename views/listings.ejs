@@ -80,15 +80,6 @@
             bootstrap.Dropdown.getOrCreateInstance(dropdownToggle).hide();
           });
         });
-
-        // Form submission handler (optional)
-        document.getElementById('searchForm').addEventListener('submit', function (e) {
-          // You can add validation here if needed
-          console.log('Form submitted with:', {
-            city: this.city.value,
-            category: this.category.value
-          });
-        });
       });
     </script>
 
@@ -124,49 +115,4 @@
     </div>
   </body>
 
-  <script>
-    // Destination
-    function setCity(city) {
-      document.getElementById("city-input").value = city;
-      document.getElementById("destination-label").textContent = city;
-    }
 
-    // Category
-    function setCategory(category) {
-      document.getElementById("category-input").value = category;
-      document.getElementById("category-label").textContent = category;
-    }
-
-    // Counters
-    function setupCounter(id) {
-      let count = 0;
-      const countSpan = document.getElementById(`${id}-count`);
-      const input = document.getElementById(`${id}-input`);
-      document.getElementById(`increase-${id}`).onclick = () => {
-        count++;
-        countSpan.textContent = count;
-        input.value = count;
-        updateGuestLabel();
-      };
-      document.getElementById(`decrease-${id}`).onclick = () => {
-        if (count > 0) {
-          count--;
-          countSpan.textContent = count;
-          input.value = count;
-          updateGuestLabel();
-        }
-      };
-    }
-
-    function updateGuestLabel() {
-      const total = ['adult', 'children', 'infant', 'pet']
-        .map(id => parseInt(document.getElementById(`${id}-input`).value))
-        .reduce((a, b) => a + b, 0);
-      document.getElementById("who-label").textContent = total > 0 ? `${total} Guest${total > 1 ? 's' : ''}` : "Add Guests";
-    }
-
-    setupCounter("adult");
-    setupCounter("children");
-    setupCounter("infant");
-    setupCounter("pet");
-  </script>

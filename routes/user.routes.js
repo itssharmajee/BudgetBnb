@@ -22,7 +22,7 @@ router
     .get(isLoggedIn, wrapAsync(renderUserSignInForm))
     .post(
         saveRedirectURL,
-        passport.authenticate("local", {// local strategy is being used
+        passport.authenticate("local", {// local strategy is being used here...
             // as it delete session so we are using saveRedirectURL before it
             failureFlash: true,
             failureRedirect: "/signin",

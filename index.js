@@ -7,6 +7,7 @@ import { router } from './routes/listing.routes.js';
 import reviewRouter from './routes/review.routes.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import Mongosession from 'connect-mongo'
 import flash from 'express-flash';// mainly this will help you add popup alert in ejs.
 import passport from 'passport';
 import { User } from './models/user.model.js';
@@ -22,8 +23,20 @@ const app = express();
 
 connectToDatabase(DB_URL);
 
+const store = Mongosession.create({
+    mongoUrl:DB_URL,
+    crypto:{
+        secret:"mysperstarMongo"
+    },
+    touchAfter:24*3600// after 24 hours it will ask you to login
+})
+
+store.on("error",(err)=>{
+    console.log("Error in MongoDB Session Store",err);
+})
 
 const sessionOptions = {
+    store,
     secret: 'any_code_that_contains_num_digit',
     resave: false,
     saveUninitialized: true,

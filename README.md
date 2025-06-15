@@ -195,3 +195,25 @@ ISC
 ---
 
 Developed by Gautam Kumar Sharma.
+
+
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Handle dropdown item clicks
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+          item.addEventListener('click', function () {
+            const dropdown = this.closest('.dropdown-menu');
+            const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+            const displayElement = dropdown.closest('.nav-item').querySelector('span:last-child');
+
+            // Update hidden input and display text
+            hiddenInput.value = this.dataset.value;
+            displayElement.textContent = this.textContent;
+
+            // Close the dropdown
+            const dropdownToggle = dropdown.previousElementSibling;
+            bootstrap.Dropdown.getOrCreateInstance(dropdownToggle).hide();
+          });
+        });
+      });
+    </script>
