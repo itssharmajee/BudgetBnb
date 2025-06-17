@@ -140,7 +140,7 @@ export const gettingListById = async (req, res, next) => {
 };
 export const renderNewListForm = (req, res) => {
     // this route you can not write after /listing/:id because it will try to find out inside the database or gives errors...
-    console.log(req.user);
+    // console.log(req.user);
     res.render("new", { heading: "create new Listing" });
 };
 export const renderUpdateListForm = async (req, res, next) => {

@@ -26,7 +26,7 @@ connectToDatabase(DB_URL);
 const store = Mongosession.create({
     mongoUrl:DB_URL,
     crypto:{
-        secret:"mysperstarMongo"
+        secret:process.env.SECRET
     },
     touchAfter:24*3600// after 24 hours it will ask you to login
 })
@@ -37,7 +37,7 @@ store.on("error",(err)=>{
 
 const sessionOptions = {
     store,
-    secret: 'any_code_that_contains_num_digit',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie:{

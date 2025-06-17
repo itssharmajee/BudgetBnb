@@ -1,4 +1,7 @@
 {
+  "engines":{
+    "node":"v22.16.0"
+},
   "name": "budgetbnb",
   "version": "1.0.0",
   "description": "it is a airbnb based project ",
